@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+
+#######   Service db postgresql
+  db:
+    image: postgres
+    environment:
+      POSTGRES_ROOT_PASSWORD: password123
+      POSTGRES_DB: commento
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - net
+    volumes:
+      - postgres_data_volume:/var/lib/postgresql/data
+
+
+  #######   Service app_server commento
+
+  app_server:
+    image: registry.gitlab.com/commento/commento
+    ports:
+      - 8080:8080
+    environment:
+  #    COMMENTO_ORIGIN: http://localhost:8080
+      COMMENTO_ORIGIN: http://127.0.0.1:8080
+      COMMENTO_PORT: 8080
+      COMMENTO_POSTGRES: postgres://postgres:postgres@db:5432/commento?sslmode=disable
+    depends_on:
+      - db
+    networks:
+      - net
+
+
+networks:
+  net:
+
+volumes:
+  postgres_data_volume:
