@@ -5,6 +5,8 @@ services:
 #######   Service db postgresql
   db:
     image: postgres
+    ports:
+      - 5432:5432
     environment:
       POSTGRES_ROOT_PASSWORD: password123
       POSTGRES_DB: commento
@@ -31,7 +33,6 @@ services:
       - db
     networks:
       - net
-
 
 networks:
   net:
