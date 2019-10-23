@@ -17,6 +17,8 @@ services:
     volumes:
       - postgres_data_volume:/var/lib/postgresql/data
 
+
+
   #######   Service app_server commento
 
   app_server:
